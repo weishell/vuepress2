@@ -4,7 +4,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { webpackBundler } from '@vuepress/bundler-webpack'
 
 export default defineUserConfig({
-  title: "vuepress-theme-reco",
+  title: "未必",
   description: "Just playing around",
   bundler: viteBundler(),
   // bundler: webpackBundler(),
@@ -12,7 +12,7 @@ export default defineUserConfig({
     logo: "/logo.png",
     author: "weishan",
     authorAvatar: "/head.png",
-    docsRepo: "https://github.com/vuepress-reco/vuepress-theme-reco-next",
+    docsRepo: "https://github.com/weishell/vuepress2",
     docsBranch: "main",
     docsDir: "example",
     lastUpdatedText: "最后更新",
