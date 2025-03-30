@@ -35,7 +35,7 @@ export default defineUserConfig({
     navbar: [
       { text: "主页", link: "/" },
       { text: "分类", link: "/categories/reco/1.html" },
-      { text: "标签", link: "/tags/tag1/1.html" },
+      { text: "标签", link: "/tags/chajianku/1.html" },
       {
         text: "Docs",
         children: [
