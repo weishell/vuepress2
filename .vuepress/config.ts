@@ -7,6 +7,9 @@ export default defineUserConfig({
   title: "未必",
   description: "Just playing around",
   bundler: viteBundler(),
+  head: [
+      ['link', { rel: 'icon', href: '/logo.png' }],
+  ],
   // bundler: webpackBundler(),
   theme: recoTheme({
     logo: "/logo.png",
