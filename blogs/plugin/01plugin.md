@@ -59,6 +59,7 @@ categories:
 + highlight.js：https://www.npmjs.com/package/highlight.js
 + modernizr:检测浏览器对HTML5CSS3兼容性的插件[modernizr](https://www.npmjs.com/package/modernizr)
 + du-i8n：国际化
++ slate.js:富文本编辑器插件
 
 
 ### 工具类插件
