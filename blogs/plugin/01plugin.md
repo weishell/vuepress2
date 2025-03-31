@@ -88,6 +88,7 @@ categories:
 + redux-saga [地址](https://github.com/redux-saga/redux-saga)
 + mobx：数据流管理插件
 + ahooks：react hooks插件
++ react-drawio:流程图插件：配置按钮存在问题，~~有的版本会存在问题，官网的则没有问题~~，测试在V26.0.16版本中就避免了这个问题，此外它还支持UML类图插件。可以利用libs参数控制左侧应该展示的控件。（存在一定的样式问题，以及图片会被转成base64，如果做接口上传要额外注意）
 
 ### 移动端插件
 
@@ -120,7 +121,7 @@ categories:
 + Photo Sphere Viewer **全景图** 插件 [地址](https://photo-sphere-viewer.js.org/)
 
 + embed-drawio:有两种模式实现流程图，一是独立编辑器（回退到初始数据再点一次就是直接无数据了），二是本地搭建drawio系统后交互（虽然需要自己搭建后台，但是不存在无法保存和回退丢失数据的情况）
-+ react-drawio:流程图插件：配置按钮存在问题，~~自己的url会存在问题，官网的则没有问题~~这个问题和版本有关，测试在V26.0.16版本中就避免了这个问题，此外它还支持UML类图插件。可以利用libs参数控制左侧应该展示的控件。（存在一定的样式，以及图片会被转成base64，如果做接口上传要额外注意）
+
 
 ### node插件
 + fs-extra：node文件处理模块
@@ -139,7 +140,9 @@ categories:
 + @emotion/css ：css in js
 
 ### UI插件库
-
++ elementui
++ elementplus
+  
 
 
 ### 一些其他网站地址
