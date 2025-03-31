@@ -6,7 +6,18 @@ import { webpackBundler } from '@vuepress/bundler-webpack'
 export default defineUserConfig({
   title: "未必",
   description: "Just playing around",
-  bundler: viteBundler(),
+  // bundler: viteBundler(),
+    bundler: viteBundler({
+    viteOptions: {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData: `@use "element-plus/theme-chalk/src/index.scss" as *;`
+          }
+        }
+      }
+    }
+  }),
   head: [
       ['link', { rel: 'icon', href: '/logo.png' }],
   ],
