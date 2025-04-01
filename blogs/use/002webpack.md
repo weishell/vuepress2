@@ -11,4 +11,4 @@ categories:
 
 ## webpack
 
-[webpack](https://bqq9knyjcuo.feishu.cn/docx/PQDsdRdBjo1uy1x93necQu1Fn4c?openbrd=1&doc_app_id=501&blockId=ENTvdZKLookrPjxF2xUcm5u9n3c&blockType=whiteboard&blockToken=G3ngwGCqAh6rWqbtf2ec8cICnWe#ENTvdZKLookrPjxF2xUcm5u9n3c)
+[webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
