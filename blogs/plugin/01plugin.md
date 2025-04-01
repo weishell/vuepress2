@@ -63,6 +63,27 @@ categories:
 
 
 ### 工具类插件
++ cross-env： 是一个常用的 Node.js 工具，用于在不同操作系统上设置环境变量，简化跨平台项目的环境配置
+
+Windows 使用 set 命令设置环境变量（如 set NODE_ENV=production），而类 Unix 系统使用 export（如 export NODE_ENV=production）。
+
+在package.json中
+```json
+{
+  "scripts": {
+    "build:prod": "cross-env NODE_ENV=production webpack --mode production",
+    "build:dev": "cross-env NODE_ENV=development webpack --mode development"
+  }
+}
+```
+在命令行中
+```bash
+# 设置单个环境变量
+cross-env NODE_ENV=production npm run build
+
+# 设置多个环境变量
+cross-env API_URL=https://api.example.com DEBUG=true node app.js
+```
 
 ### vue类插件
 
