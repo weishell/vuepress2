@@ -59,6 +59,12 @@ package.json
 }
 ```
 
+:::warning 不同环境
+
+如果不使用插件cross-env，不同的环境配置写法不一致
+
+:::
+
 构建工具配置：如Webpack、Vite等根据NODE_ENV决定构建模式（开发/生产）。
 代码逻辑分支：
 ```js
