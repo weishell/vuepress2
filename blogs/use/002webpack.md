@@ -47,7 +47,17 @@ NODE_ENV=production
 require('dotenv').config(); // 使用 dotenv 库加载环境变量  
 console.log(process.env.NODE_ENV); // 输出: "production"
 ```
-4. NODE_ENV的典型用途
+4. **NODE_ENV的典型用途**
+
+package.json
+```json
+{
+ 
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development OTHER_CONTENT=XXXXX 其他命令"
+ }
+}
+```
 
 构建工具配置：如Webpack、Vite等根据NODE_ENV决定构建模式（开发/生产）。
 代码逻辑分支：
