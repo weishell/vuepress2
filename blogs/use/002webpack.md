@@ -62,8 +62,15 @@ package.json
 :::warning 不同环境
 
 如果不使用插件cross-env，不同的环境配置写法不一致
-
+```json
+"scripts": {
+    "dev-mac": "export NODE_ENV=development && node dev.js",
+    "dev-win":  "set NODE_ENV=development && node dev.js"
+}
+```
 :::
+
+[参考链接](/blogs/plugin/01plugin.html#通用类插件库)
 
 构建工具配置：如Webpack、Vite等根据NODE_ENV决定构建模式（开发/生产）。
 代码逻辑分支：
@@ -74,4 +81,95 @@ if (process.env.NODE_ENV === 'production') {
   // 开发环境逻辑  
 }
 ```
+
+### DefinePlugin（内置）
+这个插件允许在构建过程中定义全局常量，这些常量可以在代码中被访问。由于Webpack在构建时处理这些常量，它们的值必须是`字符串`形式，以便正确替换。
+
+#### 应用场景
+
+1. html中设置值
+   
+```html
+<link rel="icon" href="<%= BASE_URL %>favicon.ico">
+```
+
+DefinePlugin允许在编译时创建配置的全局常量
+
+```js
+const path = require("path");
+const { DefinePlugin } = require("webpack");
+module.exports = {
+  mode: "development",
+  plugins: [
+    new DefinePlugin({
+      BASE_URL: "'./'",
+	    __VUE_OPTIONS_API__: true, //vue3的配置，关闭option api，默认是false
+    })
+  ]
+};
+
+```
+这个时候，编译template就可以正确的编译了，会读取到BASE_URL的值；
+
+2. 在不同的环境可以通过process.env上注入一些可供使用的数据
+
+```bash
+cross-env NODE_ENV=development OTHER_CONTENT=XXXXX 其他命令
+```
+NODE_EN 和 OTHER_CONTENT就会在process.env上获取
+
+```js
+const settingData = Object.keys(obj).reduce((acc, key) => {
+  acc[`PROCESS_ENV_${key.toUpperCase()}`] = JSON.stringify(obj[key]);
+  return acc;
+}, {});
+// 使用示例：
+// new webpack.DefinePlugin(settingData)
+```
+
+如果 Webpack 版本 >= 5，直接使用：
+
+```js
+import { Configuration, DefinePlugin } from 'webpack';
+```
+若版本 < 5，可能需要：
+
+```js
+const webpack = require('webpack');
+const { DefinePlugin } = webpack;
+```
+
+
+对于动态值，建议使用 dotenv-webpack 或 Webpack 的 EnvironmentPlugin：
+```js
+import { EnvironmentPlugin } from 'webpack';
+
+// webpack.config.ts
+plugins: [
+  new EnvironmentPlugin({
+    API_URL: process.env.API_URL,
+  }),
+]
+```
+
+### EnvironmentPlugin（内置）
+
+EnvironmentPlugin是使用DefinePlugin键的简写process.env.
+
+接受EnvironmentPlugin一个键`数组`或一个将其键映射到其默认值的`对象`。
+```js
+new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG']);
+```
+这相当于以下DefinePlugin应用程序：
+```js
+new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  'process.env.DEBUG': JSON.stringify(process.env.DEBUG),
+});
+```
+::: warning 警告
+EnvironmentPlugin检查process.env指定的变量。如果缺少，它会搜索配置中提供的默认值。如果环境变量和默认值均未定义，则会抛出错误：“ EnvironmentPlugin-${key}环境变量是undefined”。
+:::
+
+
 [webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
