@@ -9,7 +9,7 @@ categories:
  - webpack
 ---
 
-## webpack
+# webpack
 
 
 ### process.env
@@ -81,6 +81,8 @@ if (process.env.NODE_ENV === 'production') {
   // 开发环境逻辑  
 }
 ```
+
+## webpack插件
 
 ### DefinePlugin（内置）
 这个插件允许在构建过程中定义全局常量，这些常量可以在代码中被访问。由于Webpack在构建时处理这些常量，它们的值必须是`字符串`形式，以便正确替换。
@@ -171,5 +173,39 @@ new webpack.DefinePlugin({
 EnvironmentPlugin检查process.env指定的变量。如果缺少，它会搜索配置中提供的默认值。如果环境变量和默认值均未定义，则会抛出错误：“ EnvironmentPlugin-${key}环境变量是undefined”。
 :::
 
+### HtmlWebpackPlugin
+
+该插件将生成一个 HTML5 文件，该文件使用script标签在正文中包含所有 webpack 包。按如下方式将插件添加到 webpack 配置中：
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
+module.exports = {
+  entry: 'index.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'index_bundle.js',
+  },
+  plugins: [new HtmlWebpackPlugin()],
+};
+```
+这将生成一个dist/index.html包含以下内容的文件：
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>webpack App</title>
+  </head>
+  <body>
+    <script src="index_bundle.js"></script>
+  </body>
+</html>
+```
+
+如果有多个 webpack 入口点，它们都将包含`<script>`在生成的 HTML 中的标签中。
+
+如果 webpack 的输出中有任何 CSS 资源（例如，使用MiniCssExtractPlugin提取的 CSS ），那么这些资源将包含在生成的 HTML 元素`<link>`中的标签中`<head>`。
 
 [webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
