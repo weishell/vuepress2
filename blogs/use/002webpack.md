@@ -204,8 +204,8 @@ module.exports = {
 </html>
 ```
 
-如果有多个 webpack 入口点，它们都将包含`<script>`在生成的 HTML 中的标签中。
+如果有多个 webpack ***入口点***，它们都将包含`<script>`在生成的 HTML 中的标签中。
 
-如果 webpack 的输出中有任何 CSS 资源（例如，使用MiniCssExtractPlugin提取的 CSS ），那么这些资源将包含在生成的 HTML 元素`<link>`中的标签中`<head>`。
+如果 webpack 的输出中有任何 CSS 资源（例如，使用`MiniCssExtractPlugin`提取的 CSS ），那么这些资源将包含在生成的 HTML 元素`<link>`中的标签中`<head>`。
 
 [webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
