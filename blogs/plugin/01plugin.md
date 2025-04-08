@@ -60,6 +60,13 @@ categories:
 + modernizr:检测浏览器对HTML5CSS3兼容性的插件[modernizr](https://www.npmjs.com/package/modernizr)
 + du-i8n：国际化
 + slate.js:富文本编辑器插件
++ js-base64：专门用于处理 Base64 编码与解码,常与文件有关
+
+```js
+import { Base64 } from 'js-base64'
+var url = 'http://127.0.0.1:8080/file/test.txt'; //要预览文件的访问地址
+window.open('http://127.0.0.1:8012/onlinePreview?url='+encodeURIComponent(Base64.encode(url)));
+```
 
 
 ### 工具类插件
