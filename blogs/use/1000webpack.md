@@ -70,7 +70,7 @@ package.json
 ```
 :::
 
-[参考链接](/blogs/plugin/01plugin.html#通用类插件库)
+[参考链接](/blogs/plugin/0001plugin.html#通用类插件库)
 
 构建工具配置：如Webpack、Vite等根据NODE_ENV决定构建模式（开发/生产）。
 代码逻辑分支：
