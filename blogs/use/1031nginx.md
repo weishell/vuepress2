@@ -45,7 +45,7 @@ server {
 }
 ```
 
-### ci
+### 前端ci部署
 
 如果集成了gitlab或者其他的部署，前端项目中ci目录去进行相应的配置，改变了本地的default.conf中的${SOME_ONE}之类的，实际还是要通过脚本更改到nginx。
 ```bash
@@ -58,4 +58,4 @@ envsubst '${SOME_ONE}','${SOME_RWO}'  < /tmp/default.conf > /etc/nginx/conf.d/de
 # 把环境变量写入/tmp/index.html，通过构建生成实际的index.html文件
 envsubst '${ENV}' < /tmp/index.html > /xxx/nginx/html/index.html
 ```
-> 同时还需要如gitlab中.gitlab-ci.yml对应的文件
+> 同时还需要如gitlab中.gitlab-ci.yml对应的文件,后端或者运维也需要在云服务上给对应的变量去设置对应的值
