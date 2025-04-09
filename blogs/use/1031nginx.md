@@ -44,13 +44,15 @@ server {
 
 }
 ```
-
+如果继承了gitlab或者其他的部署，前端项目中ci目录去进行相应的配置。
 ```bash
 #!/bin/bash
 
 # 环境变量动态替换,生成实际的 nginx 配置文件
+# 多个变量一次写入，防止覆盖
 envsubst '${SOME_ONE}','${SOME_RWO}'  < /tmp/default.conf > /etc/nginx/conf.d/default.conf
 
 # 把环境变量写入/tmp/index.html，通过构建生成实际的index.html文件
 envsubst '${ENV}' < /tmp/index.html > /xxx/nginx/html/index.html
 ```
+同时还需要如gitlab中.gitlab-ci.yml对应的文件
