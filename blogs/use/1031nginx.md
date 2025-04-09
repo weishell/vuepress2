@@ -44,3 +44,13 @@ server {
 
 }
 ```
+
+```bash
+#!/bin/bash
+
+# 环境变量动态替换,生成实际的 nginx 配置文件
+envsubst '${SOME_ONE}','${SOME_RWO}'  < /tmp/default.conf > /etc/nginx/conf.d/default.conf
+
+# 把环境变量写入/tmp/index.html，通过构建生成实际的index.html文件
+envsubst '${ENV}' < /tmp/index.html > /xxx/nginx/html/index.html
+```
