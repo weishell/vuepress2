@@ -116,7 +116,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + redux-saga [地址](https://github.com/redux-saga/redux-saga)
 + mobx：数据流管理插件
 + ahooks：react hooks插件
-+ react-drawio:流程图插件：配置按钮存在问题，~~有的版本会存在问题，官网的则没有问题~~，测试在V26.0.16版本中就避免了这个问题，此外它还支持UML类图插件。可以利用libs参数控制左侧应该展示的控件。（存在一定的样式问题，以及图片会被转成base64，如果做接口上传要额外注意）
++ react-drawio:流程图插件：配置按钮有的版本存在问题，测试在V26.0.16版本中就避免了这个问题，此外它还支持UML类图插件。可以利用libs参数控制左侧应该展示的控件。（存在一定的样式问题，以及图片会被转成base64，如果做接口上传要额外注意）
 
 ### 移动端插件
 
@@ -125,14 +125,14 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + xmind-embed-viewer：xmind预览插件
 + ExcelJS
 + xlsx
-+ ~~@cyntler/react-doc-viewer：可以处理很多格式的预览，但是其中有的必须是公网地址的路径，所以如果考虑私密的话，不能采用。`且控制台一直在报一些警告`(不推荐)~~
++ ~~@cyntler/react-doc-viewer：可以处理很多格式的预览，但是其中有的必须是公网地址的路径，所以如果考虑私密的话，不能采用。~~`且控制台一直在报一些警告`(不推荐)
 + pdf-dist:pdf预览插件
 + @vue-office：[text](https://501351981.github.io/vue-office/examples/docs/guide/js-preview.html)
 + ~~react-file-viewer:效果极差，避坑，注意它还不能在一个页面同时存在两个组件，pdf预览控制台报错，execl预览下过差且交互报错~~
 + docx-preview
 + @excalidraw/excalidraw:手绘风格画板
 + tldraw:画板组件，**商用不可隐藏水印**
-+ cropper.js：图片裁剪插件，默认的话，创建的实例每次裁剪的时候会带着时间戳去请求一次图片，这样图片比较大的情况下，就会影响性能。有个参数配置可以关闭closeorigin:false，这样就可以不加时间戳，但是此时需要后端去配合处理图片的cors跨域问题，注意的是，最后图片img标签需要加上crossOrigin='anonymous' ，可以避免裁剪的时候又闪烁现象。
++ cropper.js：图片裁剪插件，默认的话，创建的实例每次裁剪的时候会带着时间戳去请求一次图片，这样图片比较大的情况下，就会影响性能。有个参数配置可以关闭closeorigin:false，这样就可以不加时间戳，但是此时需要后端去配合处理图片的cors跨域问题，注意的是，最后图片img标签需要加上`crossOrigin='anonymous'` ，可以避免裁剪的时候又闪烁现象。
 
 ```html
    <img
