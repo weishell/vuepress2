@@ -16,7 +16,7 @@ categories:
 #### Transform.delete与removeNodes的区别
 
 关键区别
-特性	|Transform.delete	|Transform.remove（或 removeNodes）
+特性	|Transform.delete	|Transform.removeNodes
 -|-|-
 操作目标	|文本内容（字符）|	节点（如段落、图片）
 参数	|范围（Range）|	路径（Path）
@@ -29,5 +29,5 @@ categories:
 + 删除整个段落：右键删除某个段落块 → 使用 Transform.removeNodes。
 
   :::tip 提示
-  总结：delete 针对文本，remove 针对节点。
+  总结：delete 针对**文本**，removeNodes针对**节点**。
   :::
