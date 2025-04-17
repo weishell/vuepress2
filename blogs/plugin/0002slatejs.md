@@ -1,5 +1,5 @@
 ---
-title: 前端库和插件合集
+title: slatejs
 date: 2025/04/17
 tags:
  - 插件库
