@@ -61,6 +61,7 @@ categories:
 + du-i8n：国际化
 + slate.js:富文本编辑器插件
 + js-base64：专门用于处理 Base64 编码与解码,常与文件有关
++ p-limit: 限制并发
 
 ```js
 import { Base64 } from 'js-base64'
