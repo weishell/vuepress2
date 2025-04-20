@@ -42,6 +42,12 @@ export default defineUserConfig({
           children: ["api", "plugin"],
         },
       ],
+      "/docs/top/":[
+        {
+          text:'前端基础',
+          children:['0001object']
+        }
+      ]
     },
     navbar: [
       { text: "主页", link: "/" },
@@ -51,6 +57,7 @@ export default defineUserConfig({
         text: "Docs",
         children: [
           { text: "vuepress-reco", link: "/docs/theme-reco/theme" },
+          {text:"top",link:'/docs/top/0001object'},
           { text: "vuepress-theme-reco", link: "/blogs/other/guide" },
         ],
       },
