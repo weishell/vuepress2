@@ -22,6 +22,7 @@ categories:
 + js-file-download: **下载** 插件 [地址](/fast/1007download.html#利用插件下载文件-js-file-download)
 + downloadjs: **下载** 插件 注意是否支持视频的合理处理
 + console:第三方集成无法看到 **控制台** 时使用 [npm install vconsole]
++ chalk:日志颜色提醒[地址](https://www.npmjs.com/package/chalk)
 + lazyload: **懒加载** [lazyload](https://www.npmjs.com/package/lazyload)
 + clipboard: **复制粘贴** [clipboard](https://clipboardjs.com/)
 + moment **日期格式** [moment](http://momentjs.cn/)
