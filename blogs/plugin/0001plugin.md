@@ -185,5 +185,6 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + [MDN](https://developer.mozilla.org/zh-CN/)
 + [stackoverflow](https://stackoverflow.com/)
 + [caniuse](https://caniuse.com/#home):浏览器兼容性
-+  drawio官网
-+  kkfileview
++ [colordrop](https://www.colordrop.io/flat/)颜色搭配网站
++ [drawio官网](https://app.diagrams.net/?culture=en-us&country=US)drawio官网
++ [kkfileview](https://www.kkview.cn/):预览文件用，内部坑多，如果需要在https网站预览，需要nginx代理，而其内部很多路径是相对路径，代理时可能会出现较多问题，需要逐步修理，另外他的缓存机制不合理，缓存同名文件，存在bug，需要后端修改。（如果预览跳转新页面则无所谓）
