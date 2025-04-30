@@ -51,5 +51,5 @@ const [node, path1] = Editor.node(editor, path0);
 const node  = Node.get(editor, path0)
 ```
 
-> 当创建的实力editor上符合Node的构造，也可以指定Node.get(editor,xxx)此时结果和Editor.node一致
+> 当创建的实例editor上符合Node的构造，也可以指定Node.get(editor,xxx)此时结果和Editor.node一致
 > path0可以是相对路径，所以path1最后相当于对路径规整，二者可能相等，也可能不一致
