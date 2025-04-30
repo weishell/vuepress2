@@ -81,6 +81,13 @@ if (process.env.NODE_ENV === 'production') {
   // 开发环境逻辑  
 }
 ```
+## Configuration
+由用户提供的配置对象，interface。
+```js
+const myWebpackConfig: Configuration = {
+	// 配置
+}
+```
 
 ## webpack插件
 
