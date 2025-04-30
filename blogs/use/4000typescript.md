@@ -1,6 +1,6 @@
 ---
 title: typescript
-date: 2025/04/01
+date: 2025/04/30
 tags:
  - js
  - typescript
@@ -38,6 +38,8 @@ categories:
 }
 ```
 
+### compilerOptions配置详解
+
 配置项	|默认值|	作用描述|推荐值/示例	|注意事项
 -|-|-|-|-
 target|	es3	|指定编译后的 ECMAScript 目标版本（如 es5, es6, es2022）。	|es6 或 esnext|	现代项目建议 es6 以上以获得更好的性能和体积优化。
@@ -70,4 +72,6 @@ sourceMap	|false	|生成 .map 文件以调试原始 TypeScript 代码。|	true	|
 outDir	|undefined	|指定编译输出目录（如 dist）。|	"./dist"	|需关闭 noEmit 或使用其他工具处理输出。
 rootDir|	undefined|	指定输入文件的根目录（用于控制输出目录结构）。|	"./src"	|确保所有输入文件在此目录下。
 composite|	false	|启用项目引用（Project References）优化。	|true（大型 Monorepo 项目）	|需配合 references 配置使用。
+
+当 forceConsistentCasingInFileNames: false 时：在不区分大小写的文件系统（如 Windows）中可能不会报错，但会导致以下问题：在区分大小写的系统（如 Linux）中运行时崩溃。Git 仓库中可能意外出现重复文件（如 MyComponent.tsx 和 mycomponent.tsx）。
 
