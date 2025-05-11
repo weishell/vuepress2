@@ -216,7 +216,6 @@ module.exports = {
 如果 webpack 的输出中有任何 CSS 资源（例如，使用`MiniCssExtractPlugin`提取的 CSS ），那么这些资源将包含在生成的 HTML 元素`<link>`中的标签中`<head>`。
 
 
-[webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
 
 #### HtmlWebpackPlugin复杂用法
 
@@ -288,3 +287,6 @@ module.exports = {
 | `sortClassName`                | `boolean`               | 按使用频率排序 CSS 类名                                                 | `false`                  |
 | `trimCustomFragments`          | `boolean`               | 修剪 `ignoreCustomFragments` 匹配块周围的空白                           | `false`                  |
 | `useShortDoctype`              | `boolean`               | 使用 HTML5 短文档类型（`<!DOCTYPE html>`）                              | `false`                  |
+
+
+[webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
