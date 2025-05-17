@@ -7,13 +7,37 @@ categories:
  - plugin
 ---
 
-## slatejs
+# slatejs
 
 
-### slatejs常见问题
+## slatejs常见问题
 
 
-#### Transform.delete与removeNodes的区别
+### Editor.withoutNormalizing
+在 Slate.js 中，Editor.withoutNormalizing 的作用是 批量操作时临时禁用自动规范化（Normalization）。它的使用与否会直接影响编辑器对文档结构的处理逻辑和性能表现。以下是具体区别分析：
+
+```js
+Editor.withoutNormalizing(editor, () => { 
+  Transforms.removeNodes(editor, { at: path1 });
+  insertFun(editor, path1);
+  Transforms.select(editor, path1);
+});
+```
+
+##### 特点：
+1. 禁用自动规范化： 在回调函数内的所有操作（removeNodes、insertEmptyParagraph、select）期间，Slate 的自动规范化逻辑会被临时禁用。
+2. 合并规范化： 所有操作完成后，仅触发一次规范化（而不是每个操作后都触发）。
+3. 性能优化： 避免多次中间状态的规范化计算，提升连续操作的性能。
+4. 操作原子性：确保多个操作被视为一个原子操作，避免中间状态不一致。
+
+#### 何时应该使用 Editor.withoutNormalizing？
+1. 连续多个操作（如删除节点 + 插入新内容 + 聚焦）。
+2. 性能敏感场景（如高频内容更新）。
+3. `路径依赖操作（避免中间规范化导致路径失效）。`
+4. `输入法兼容性优化（如中文/日文输入）。`
+
+
+### Transform.delete与removeNodes的区别
 
 关键区别
 特性	|Transform.delete	|Transform.removeNodes
@@ -32,7 +56,7 @@ categories:
   总结：delete 针对**文本**，removeNodes针对**节点**。
   :::
 
-#### Editor.node 和 Node.get
+### Editor.node 和 Node.get
 ```js
 type NodeEntry<T extends Node = Node> = [T, Path]
 type Location = Path | Point | Range
@@ -53,3 +77,8 @@ const node  = Node.get(editor, path0)
 
 > 当创建的实例editor上符合Node的构造，也可以指定Node.get(editor,xxx)此时结果和Editor.node一致
 > path0可以是相对路径，所以path1最后相当于对路径规整，二者可能相等，也可能不一致
+
+### slatejs类似插件库
+1. Plate：基于 Slate.js 构建的富文本编辑器框架，专注于插件化开发，提供核心、插件、组件和原语四大模块，支持高度定制化和扩展性。[链接](https://github.com/udecode/plate)
+2. TipTap：无头（Headless）富文本编辑器框架，支持完全自定义 UI 和实时协作功能。[链接](https://github.com/ueberdosis/tiptap)
+3. Lexical：由 Facebook 开发的可扩展文本编辑器框架，强调可靠性、可访问性和性能。[链接](https://github.com/facebook/lexical)
