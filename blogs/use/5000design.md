@@ -20,75 +20,71 @@ categories:
 事务回滚方案|	O(n)|	O(n) |	单次遍历	|需记录状态，实现复杂
 
 ```js
-const updateFun = (params) => {
-    const { editor, currentIndex, matchList, listId, indent, op, block } = params;
-    const opIndentDelta = op === 'reduce' ? -2 : 2;
-    const MAX_INDENT = 10;
-    const MIN_INDENT = 0;
-
-    // 事务管理对象
-    const transaction = {
-        backups: [] as Array<{ path: Path; originalIndent: number }>, // 备份原始缩进
-        changes: [] as Array<() => void> // 记录变更操作
-    };
-
-    try {
-        // 1. 收集所有需要修改的节点并预备份
-        const currentPath = matchList[currentIndex][1];
-        const targets = [currentPath]; // 当前节点必须处理
-
-        // 收集后续子节点
-        for (let i = currentIndex + 1; i < matchList.length; i++) {
-            const [item, path] = matchList[i];
-            if (item.style.indent <= indent) break;
-            targets.push(path);
-        }
-
-        // 2. 备份原始状态（原子性读取）
-        targets.forEach(path => {
-            const node = Node.get(editor, path) as AdvancedRenderElement;
-            transaction.backups.push({
-                path,
-                originalIndent: node.style?.indent || 0
-            });
-        });
-
-        // 3. 生成变更操作（不立即执行）
-        targets.forEach((path, index) => {
-            const backup = transaction.backups[index];
-            const newIndent = backup.originalIndent + opIndentDelta;
-
-            // 立即检查合法性
-            if (newIndent > MAX_INDENT || newIndent < MIN_INDENT) {
-                throw new Error(`缩进值 ${newIndent} 超出允许范围`);
-            }
-
-            transaction.changes.push(() => {
-                setBlockNode(editor, {
-                    style: { ...backup.node.style, indent: newIndent }
-                }, { at: path });
-            });
-        });
-
-        // 4. 执行所有变更（原子性提交）
-        Editor.withoutNormalizing(editor, () => {
-            transaction.changes.forEach(change => change());
-        });
-
-        // 5. 触发列表重排序
-        olulListSort([listId], editor);
-
-    } catch (error) {
-        // 6. 事务回滚：恢复所有备份
-        Editor.withoutNormalizing(editor, () => {
-            transaction.backups.forEach(({ path, originalIndent }) => {
-                const node = Node.get(editor, path) as AdvancedRenderElement;
-                setBlockNode(editor, {
-                    style: { ...node.style, indent: originalIndent }
-                }, { at: path });
-            });
-        });
-
+const updateIndentWithRollback = (params) => {
+  const { editor, currentIndex, matchList, listId, indent } = params;
+  
+  // 1. 准备工作
+  const opDelta = 1;
+  const MAX = 20;
+  const MIN = 0;
+  
+  // 2. 创建"后悔药"容器
+  const undoList = []; // 存储要恢复的信息：{ 节点位置, 原始缩进值 }
+  
+  try {
+    // 3. 收集要修改的节点位置
+    const targets = [matchList[currentIndex][1]]; // 当前节点位置
+    
+    // 添加后续子节点位置
+    for (let i = currentIndex + 1; i < matchList.length; i++) {
+      const [item, path] = matchList[i];
+      if (item.style.indent <= indent) break;
+      targets.push(path);
     }
+    
+    // 4. 保存原始状态（制作后悔药）
+    targets.forEach(path => {
+      const node = Node.get(editor, path);
+      undoList.push({
+        path,
+        origIndent: node.style.indent // 记住原来的缩进值
+      });
+    });
+    
+    // 5. 检查并计算新值
+    const newValues = [];
+    for (const { path, origIndent } of undoList) {
+      const newIndent = origIndent + opDelta;
+      
+      // 检查是否超出范围
+      if (newIndent > MAX || newIndent < MIN) {
+        throw new Error(`缩进值超出范围`);
+      }
+      
+      newValues.push({ path, newIndent });
+    }
+    
+    // 6. 执行实际修改
+    newValues.forEach(({ path, newIndent }) => {
+      const node = Node.get(editor, path);
+      Transform.setNodes(editor, {
+        style: { ...node.style, indent: newIndent }
+      }, { at: path });
+    });
+    
+    // 7. 更新列表
+    updateList(xxx);
+    
+  } catch (error) {
+    // 8. 吃"后悔药"回滚
+    undoList.forEach(({ path, origIndent }) => {
+      const node = Node.get(editor, path);
+      Transform.setNodes(editor, {
+        style: { ...node.style, indent: origIndent } // 恢复原始值
+      }, { at: path });
+    });
+    
+    console.error('操作失败已回滚', error);
+  }
 };
 ```
