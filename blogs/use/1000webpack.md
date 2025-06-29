@@ -12,6 +12,7 @@ categories:
 # webpack
 
 
+
 ### process.env
 
 #### process.env的本质
@@ -90,6 +91,14 @@ const myWebpackConfig: Configuration = {
 ```
 
 ## webpack插件
+
+### webpack-dev-server
+
+```
+"dev": "webpack-dev-server --config ./webpack.dev.config.js --mode development", // 会热更新，打包的内容会放在内容中而不是实际创建文件
+"dev1": "webpack --config ./webpack.dev.config.js --mode development" //会打dist包，按照development环境，不做过多优化
+```
+
 
 ### DefinePlugin（内置）
 这个插件允许在构建过程中定义全局常量，这些常量可以在代码中被访问。由于Webpack在构建时处理这些常量，它们的值必须是`字符串`形式，以便正确替换。

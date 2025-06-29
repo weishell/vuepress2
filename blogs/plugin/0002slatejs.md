@@ -78,6 +78,10 @@ const node  = Node.get(editor, path0)
 > 当创建的实例editor上符合Node的构造，也可以指定Node.get(editor,xxx)此时结果和Editor.node一致
 > path0可以是相对路径，所以path1最后相当于对路径规整，二者可能相等，也可能不一致
 
+### slatejs其他注意事项
+
+1. 光标：某些操作会影响光标的位置，需要使用event.prevent()做额外处理
+
 ### slatejs类似插件库
 1. Plate：基于 Slate.js 构建的富文本编辑器框架，专注于插件化开发，提供核心、插件、组件和原语四大模块，支持高度定制化和扩展性。[链接](https://github.com/udecode/plate)
 2. TipTap：无头（Headless）富文本编辑器框架，支持完全自定义 UI 和实时协作功能。[链接](https://github.com/ueberdosis/tiptap)
