@@ -64,6 +64,8 @@ categories:
 + js-base64：专门用于处理 Base64 编码与解码,常与文件有关
 + p-limit: 限制并发
 + fullcalendar:日历插件 [官网](https://fullcalendar.io/)
++ remark:提供 Markdown 处理管道，用于修复和标准化 Markdown 格式
++ autofitjs:适应屏幕[官网](https://auto-plugin.github.io/autofit.js/)
 
 ```js
 import { Base64 } from 'js-base64'
