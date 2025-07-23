@@ -160,6 +160,50 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + fs-extra：node文件处理模块
 + spark-md5: `加密插件，比md5方法更多`,支持增量计算,用来处理切片上传hash值计算
 + formidable:处理上传文件图片
+
+spark-md5在应用中，发现采样计算后的md等文档会获取的hash值比较慢，测试的文件是大约30M需要1min，视频的话不会那么慢，使用好的电脑mac M4计算的不受影响。也可能是采样自身的逻辑问题
+```js
+async calculateHashSample(){
+      // 1个G的文件，抽样后5M以内
+      // hash一样，文件不一定一样
+      // hash不一样，文件一定不一样
+      return new Promise(resolve=>{
+        const spark = new sparkMD5.ArrayBuffer()
+        const reader = new FileReader()
+
+        const file = this.file
+        const size = file.size
+        const offset = 2*1024*1024
+        // 第一个2M，最后一个区块数据全要
+        let chunks = [file.slice(0,offset)]
+
+        let cur = offset
+        while(cur<size){
+          if(cur+offset>=size){
+            // 最后一个区快
+            chunks.push(file.slice(cur, cur+offset))
+
+          }else{
+            // 中间的区块
+            const mid = cur+offset/2
+            const end = cur+offset
+            chunks.push(file.slice(cur, cur+2))
+            chunks.push(file.slice(mid, mid+2))
+            chunks.push(file.slice(end-2, end))
+          }
+          cur+=offset
+        }
+        // 中间的，取前中后各2各字节
+        reader.readAsArrayBuffer(new Blob(chunks))
+        reader.onload = e=>{
+          spark.append(e.target.result)
+          this.hashProgress = 100
+          resolve(spark.end())
+        }
+      })
+    },
+
+```
   
 ### egg插件
 + egg-router-group : 后端路由接口分组
