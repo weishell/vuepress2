@@ -161,7 +161,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + spark-md5: `加密插件，比md5方法更多`,支持增量计算,用来处理切片上传hash值计算
 + formidable:处理上传文件图片
 
-spark-md5在应用中，发现采样计算后的md等文档会获取的hash值比较慢，测试的文件是大约30M需要1min，视频的话不会那么慢，使用好的电脑mac M4计算的不受影响。也可能是采样自身的逻辑问题
+spark-md5在应用中，发现读取file文件中的md等类型文档非常耗时，会获取的hash值比较慢，测试的文件是大约30M需要1min，视频的话不会那么慢，使用好的电脑mac M4计算的不受影响。也可能是采样自身的逻辑问题
 ```js
 async calculateHashSample(){
       // 1个G的文件，抽样后5M以内
