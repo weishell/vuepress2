@@ -137,6 +137,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + docx-preview
 + @excalidraw/excalidraw:手绘风格画板
 + tldraw:画板组件，**商用不可隐藏水印**
++ mermaid: 可以通过代码转成图形的一种库，run和render都可以渲染，run不适合多图同时展示，因为存在绘制位置不对场景
 + cropper.js：图片裁剪插件，默认的话，创建的实例每次裁剪的时候会带着时间戳去请求一次图片，这样图片比较大的情况下，就会影响性能。有个参数配置可以关闭closeorigin:false，这样就可以不加时间戳，但是此时需要后端去配合处理图片的cors跨域问题，注意的是，最后图片img标签需要加上`crossOrigin='anonymous'` ，可以避免裁剪的时候又闪烁现象。
 
 ```html
