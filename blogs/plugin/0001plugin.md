@@ -137,6 +137,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + docx-preview
 + @excalidraw/excalidraw:手绘风格画板
 + tldraw:画板组件，**商用不可隐藏水印**
++ mermaid: 可以通过代码转成图形的一种库，run和render都可以渲染，run不适合多图同时展示，因为存在绘制位置不对场景
 + cropper.js：图片裁剪插件，默认的话，创建的实例每次裁剪的时候会带着时间戳去请求一次图片，这样图片比较大的情况下，就会影响性能。有个参数配置可以关闭closeorigin:false，这样就可以不加时间戳，但是此时需要后端去配合处理图片的cors跨域问题，注意的是，最后图片img标签需要加上`crossOrigin='anonymous'` ，可以避免裁剪的时候又闪烁现象。
 
 ```html
@@ -160,6 +161,51 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + fs-extra：node文件处理模块
 + spark-md5: `加密插件，比md5方法更多`,支持增量计算,用来处理切片上传hash值计算
 + formidable:处理上传文件图片
+
+> spark-md5在应用中，发现读取file文件中的md等类型文档非常耗时，会获取的hash值比较慢，测试的文件是大约30M需要1min，视频的话不会那么慢，使用好的电脑mac M4计算的不受影响。一开始以为是电脑设备的原因，好的电脑能扛住运算所以秒算，但是这也不符合一个使用率那么高的库会出现不同系统上速度天壤之别，最后回家用自己的电脑发现比公司的快两三百倍，大概率是公司网络安全的问题，会阻塞读取直到自己检查文件没问题才结束，而视频也比正常电脑慢了三四倍，只是没有那么明显而已
+
+```js
+async calculateHashSample(){
+      // 1个G的文件，抽样后5M以内
+      // hash一样，文件不一定一样
+      // hash不一样，文件一定不一样
+      return new Promise(resolve=>{
+        const spark = new sparkMD5.ArrayBuffer()
+        const reader = new FileReader()
+
+        const file = this.file
+        const size = file.size
+        const offset = 2*1024*1024
+        // 第一个2M，最后一个区块数据全要
+        let chunks = [file.slice(0,offset)]
+
+        let cur = offset
+        while(cur<size){
+          if(cur+offset>=size){
+            // 最后一个区快
+            chunks.push(file.slice(cur, cur+offset))
+
+          }else{
+            // 中间的区块
+            const mid = cur+offset/2
+            const end = cur+offset
+            chunks.push(file.slice(cur, cur+2))
+            chunks.push(file.slice(mid, mid+2))
+            chunks.push(file.slice(end-2, end))
+          }
+          cur+=offset
+        }
+        // 中间的，取前中后各2各字节
+        reader.readAsArrayBuffer(new Blob(chunks))
+        reader.onload = e=>{
+          spark.append(e.target.result)
+          this.hashProgress = 100
+          resolve(spark.end())
+        }
+      })
+    },
+
+```
   
 ### egg插件
 + egg-router-group : 后端路由接口分组
@@ -193,4 +239,4 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + [caniuse](https://caniuse.com/#home):浏览器兼容性
 + [colordrop](https://www.colordrop.io/flat/)颜色搭配网站
 + [drawio官网](https://app.diagrams.net/?culture=en-us&country=US)drawio官网
-+ [kkfileview](https://www.kkview.cn/):预览文件用，内部坑多，如果需要在https网站预览，需要nginx代理，而其内部很多路径是相对路径，代理时可能会出现较多问题，需要逐步修理，另外他的缓存机制不合理，缓存同名文件，存在bug，需要后端修改。（如果预览跳转新页面则无所谓）
++ [kkfileview](https://www.kkview.cn/):预览文件用，内部坑多，如果需要在https网站预览，需要nginx代理，而其内部很多路径是相对路径，代理时可能会出现较多问题，需要逐步修理，另外他的缓存机制不合理，缓存同名文件，存在bug，需要后端修改。（如果预览跳转新页面则无所谓），kk的预览转换很消耗性能，最后能设置好秒传功能，这样只需要转换一次，降低服务端的压力
