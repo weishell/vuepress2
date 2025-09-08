@@ -61,7 +61,10 @@ categories:
 + modernizr:检测浏览器对HTML5CSS3兼容性的插件[modernizr](https://www.npmjs.com/package/modernizr)
 + du-i8n：国际化
 + slate.js:富文本编辑器插件
-    
+  - slate-dom
+  - slate-history
+  - slate-react
+  - slate-hyperscript
 + js-base64：专门用于处理 Base64 编码与解码,常与文件有关
 + p-limit: 限制并发
 + fullcalendar:日历插件 [官网](https://fullcalendar.io/)
