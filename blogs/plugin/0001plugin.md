@@ -73,6 +73,7 @@ categories:
 + remark:提供 Markdown 处理管道，用于修复和标准化 Markdown 格式
 + autofitjs:适应屏幕[官网](https://auto-plugin.github.io/autofit.js/)
 + recorder-core：音频处理，可以用来把实时传输给后端，应用场景：音频转文字
++ lazysizes:图片懒加载插件
 
 ```js
 import { Base64 } from 'js-base64'
