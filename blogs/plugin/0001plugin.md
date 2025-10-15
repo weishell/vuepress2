@@ -253,3 +253,4 @@ async calculateHashSample(){
 + [react学习](https://react.iamkasong.com/)
 + [univer](https://github.com/dream-num/univer)
 + [weibook](https://weibook.netlify.app/)
++ [developer.chrome](https://developer.chrome.com/docs/devtools/overview?hl=zh-cn)
