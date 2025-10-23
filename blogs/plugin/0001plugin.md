@@ -105,6 +105,9 @@ cross-env NODE_ENV=production npm run build
 cross-env API_URL=https://api.example.com DEBUG=true node app.js
 ```
 
++ source-map
++ @sentry/webpack-plugin：一个为 Sentry 提供源映射和发布管理支持的 Webpack 插件。
+
 ### vue类插件
 
 + @riophae/vue-treeselect: select多层级选择插件 [介绍](https://www.vue-treeselect.cn/) [使用](/vue/012vuetree.html#vue-treeselect)
