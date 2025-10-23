@@ -67,6 +67,7 @@ categories:
   - slate-history
   - slate-react
   - slate-hyperscript
++ slate-yjs: slate协同用的插件，已不维护
 + js-base64：专门用于处理 Base64 编码与解码,常与文件有关
 + p-limit: 限制并发
 + fullcalendar:日历插件 [官网](https://fullcalendar.io/)
