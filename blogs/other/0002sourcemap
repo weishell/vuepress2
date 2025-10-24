@@ -64,6 +64,13 @@ mappings:"AAAAA,BBBBB;CCCCC"
 
 sourcemap 的格式还是很容易理解的，就是一一映射编译后代码的位置和源码的位置。
 
+除了调试的时候会使用 sourcemap，线上报错定位源码也需要用到：
+
+开发时会使用 sourcemap 来调试，但是生产可不会，但是线上报错的时候确实也需要定位到源码，这种情况一般都是单独上传 sourcemap 到错误收集平台。
+
+比如 sentry 就提供了一个 [@sentry/webpack-plugin](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40sentry%2Fwebpack-plugin "https://www.npmjs.com/package/@sentry/webpack-plugin") 支持在打包完成后把 sourcemap 自动上传到 sentry 后台，然后把本地 sourcemap 删掉。还提供了 [@sentry/cli](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40sentry%2Fcli "https://www.npmjs.com/package/@sentry/cli") 让用户可以手动上传。
+
+平时我们至少在这两个场景（**开发时调试源码，生产时定位错误的源码位置**）下会用到 sourcemap。
 
 
 
