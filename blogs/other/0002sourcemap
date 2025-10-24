@@ -6,3 +6,64 @@ tags:
 categories:
  - other
 ---
+
+## sourcemap
+
+**sourcemap 是关联编译后的代码和源码的，通过一个个行列号的映射。**
+
+比如编译后代码的第 3 行第 4 列，对应着源码里的第 8 行第 5 列这种，这叫做一个 mapping。
+
+sourcemap 的格式如下：
+
+```javascript
+{
+　　　　version : 3,
+　　　　file: "out.js",
+　　　　sourceRoot : "",
+　　　　sources: ["foo.js", "bar.js"],
+　　　　names: ["a", "b"],
+　　　　mappings: "AAgBC,SAAQ,CAAEA;AAAEA",
+      sourcesContent: ['const a = 1; console.log(a)', 'const b = 2; console.log(b)']
+}
+```
+- version：sourcemap 的版本，一般为 3
+- file：编译后的文件名
+- sourceRoot：源码根目录
+- names：转换前的变量名
+- sources：源码文件名
+- sourcesContent：每个 sources 对应的源码的内容
+- mappings：一个个位置映射
+
+为什么 sources 可以有多个呢？
+
+因为可能编译产物是多个源文件合并的，比如打包，一个 bundle.js 就对应了 n 个 sources 源文件。
+
+重点是 mappings 部分：
+
+mappings 部分是通过分号`;` 和逗号 `,` 分隔的：
+
+```
+mappings:"AAAAA,BBBBB;CCCCC"
+```
+
+一个分号就代表一行，这样就免去了行的映射。
+
+然后每一行可能有多个位置的映射，用 `,` 分隔。
+
+那具体的每一个 mapping 都是啥呢？
+
+比如 AAAAA 一共五位，分别有不同的含义：
+
+- 转换后代码的第几列（行数通过分号 ; 来确定）
+- 转换前的哪个源码文件，保存在 sources 里的，这里通过下标索引
+- 转换前的源码的第几行
+- 转换前的源码的第几列
+- 转换前的源码的哪个变量名，保存在 names 里的，这里通过下标索引
+
+然后经过编码之后，就成了 AAAAA 这种，这种编码方式叫做 VLQ 编码。
+
+sourcemap 的格式还是很容易理解的，就是一一映射编译后代码的位置和源码的位置。
+
+
+
+
