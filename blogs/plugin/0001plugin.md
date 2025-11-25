@@ -108,6 +108,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 
 + source-map
 + @sentry/webpack-plugin：一个为 Sentry 提供源映射和发布管理支持的 Webpack 插件。
++ npm-run-all ：管理复杂构建流程和开发工作流的实用工具， 是一个用于并行或串行运行多个 npm 脚本的 CLI 工具。它可以帮助你更高效地管理和组织 package.json 中的脚本命令。
 
 ### vue类插件
 
