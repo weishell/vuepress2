@@ -343,4 +343,114 @@ module.exports = {
 | `useShortDoctype` | [将 `doctype` 替换为简短 (HTML5) 文档类型](http://perfectionkills.com/experimenting-with-html-minifier#use_short_doctype) | `false` |
 
 
+
+## 实际操作
+
+### react中分包懒加载
+
+> 注意webpack中的cacheGroups对应的分包chunk为async，否则不会懒加载，会在首次加载中把资源加载，然后懒加载时只会加载一个很小的类似映射的文件（本地会看到的确是懒加载，但是线上不行，所以还是用async而不是all）
+
+```tsx
+// 动态加载Prism.js
+const loadPrism = async () => {
+  if (window.__prism) {
+    return window.__prism
+  }
+
+  try {
+    // 动态导入Prism.js核心
+    const prismModule = await import('prismjs')
+    const Prism = prismModule.default
+    
+    // 动态加载需要的语言支持（根据你的实际需要添加）
+    await import('prismjs/components/prism-javascript')
+    await import('prismjs/components/prism-typescript')
+    await import('prismjs/components/prism-jsx')
+    await import('prismjs/components/prism-tsx')
+    await import('prismjs/components/prism-css')
+    await import('prismjs/components/prism-markdown')
+    await import('prismjs/components/prism-json')
+    await import('prismjs/components/prism-bash')
+    await import('prismjs/components/prism-yaml')
+    
+    // 动态加载样式 - 使用 Prism 官方主题
+    await import('prismjs/themes/prism-tomorrow.css') // 或 prism-okaidia.css, prism-coy.css 等
+    
+    // 导入自定义样式（如果有的话）
+    await import('../../prism.css')
+    
+    // 将Prism挂载到window上
+    window.__prism = Prism
+    return Prism
+  } catch (error) {
+    //。。。。
+  }
+}
+
+// 当存在代码时采取加载分包
+useEffect(() => {
+  if (daima && daimaRef.current) {
+    // 异步加载Prism.js并高亮代码
+    loadPrism()
+      .then(prism => {
+        if (daimaRef.current) {
+          // 设置 Prism 配置
+          prism.configure({
+            // 可选：设置 tab 替换为空格
+            // tabReplace: '  ',
+            // 可选：设置默认语言
+            defaultLanguage: 'javascript',
+            // 可选：自动检测语言
+            detectLanguage: true
+          })
+          // 高亮代码块
+          prism.highlightElement(daimaRef.current)
+          
+        }
+      })
+      .catch(error => {
+		//。。。。
+      })
+  }
+}, [daima])
+```
+
+
+
+```ts
+    splitChunks: {
+	  minSize: 50 * 1024,
+      chunks: 'all',
+      maxAsyncRequests: 12,
+	  hidePathInfo: true,
+      maxInitialRequests: 8,
+      automaticNameDelimiter: '-',
+      cacheGroups: {
+        // 添加 Prism.js 缓存组
+        prismVendor: {
+          test: /[\\/]node_modules[\\/](prismjs)[\\/]/,
+          name: 'prism-vendor',
+          priority: 35,
+          chunks: 'async', // 因为代码高亮通常是异步使用，所以用 async
+          enforce: true
+        },
+        // 保持原有的其他缓存组...
+        editorPlugins: {
+          test: /[\\/]src[\\/](views|components)[\\/]/,
+          name: 'conent-xxx-vendor',
+          priority: 20,
+          chunks: 'all',
+          enforce: true
+        },
+        // ... 其他配置
+      }
+    },
+    moduleIds: 'deterministic',
+    chunkIds: 'deterministic'
+  },
+ 
+})
+
+```
+
 [webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
