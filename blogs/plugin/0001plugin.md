@@ -235,6 +235,38 @@ async calculateHashSample(){
 + reset.css 重置浏览器样式
 + @emotion/css ：css in js
 
+```tsx
+// cx相当于classname的合集，而css可以理解为一个单独的类
+import { cx, css } from '@emotion/css'
+
+
+const arr = [xx,xxx,xxx]
+
+const class1 = css`
+   width:32px;
+   height:32px;
+   background:blue;
+   border-radius:16px;
+   margin:0 2px;
+   flex:1;
+   line-height: 32px;
+   text-align: center;
+`
+
+const class2 = css`
+  background:green;
+  color:#fff;
+`
+
+
+export const C1 = props => {
+    return (<>
+        {arr.map(i => <div key={i className={class1}>{xxxx}</div>)}
+        <div className={cx(class1,class2,css`font-szie:35px`)}>xxxx</div>
+  </>)
+}
+```
+
 ### UI插件库
 + elementui
 + elementplus
