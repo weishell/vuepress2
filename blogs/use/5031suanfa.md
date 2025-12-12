@@ -29,7 +29,7 @@ categories:
 #### 两数之和
 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
 
-1. 对于大型数组，递归可能导致调用栈溢出。
+1. 递归法：对于大型数组，递归可能导致调用栈溢出。
    
 ```js
 /**
@@ -62,4 +62,50 @@ function findValue(nums, index, target) {
 const arr = twoSum([3, 2, 4], 6);
 console.log(arr); // 应该输出 [1, 2]
 ```
+
+2. 哈希表
+
+```js
+var twoSum = function(nums, target) {
+    const map = new Map();
+    for(let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if(map.has(complement)) {
+            return [map.get(complement), i];
+        }
+        map.set(nums[i], i);
+    }
+    
+    return [];
+};
+```
+
+3. 双指针法：暴力循环法
+
+```js
+var twoSum = function(nums, target) {
+    for(let i = 0; i < nums.length; i++) {
+        for(let j = i + 1; j < nums.length; j++) {
+            if(nums[i] + nums[j] === target) {
+                return [i, j];
+            }
+        }
+    }
+    return [];
+};
+```
+
+
+##### 总结对比
+
+方法	| 时间复杂度| 	空间复杂度| 	优点| 	缺点
+-| -| -| -| -| -|-
+递归方法| 	O(n²)| 	O(n)| 	递归思路清晰	| 栈溢出风险，性能最差
+哈希表方法	| O(n)	| O(n)	| 最快，只需一次遍历	| 需要额外空间存储哈希表
+双循环方法	| O(n²)| 	O(1)	| 空间效率最高，实现简单	| 时间效率低，大数据量慢
+
+###### 实际应用建议
+1. 优先使用哈希表方法 - 时间效率最高，是大数据量的首选
+2. 如果内存极度受限 - 考虑双循环方法
+3. 一般不推荐递归方法 - 既有双循环的时间复杂度，又有额外的栈空间开销
 
