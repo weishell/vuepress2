@@ -27,7 +27,10 @@ categories:
 ## 算法常见案例
 
 #### 两数之和
+
+```
 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+```
 
 1. 递归法：对于大型数组，递归可能导致调用栈溢出。
    
@@ -104,8 +107,52 @@ var twoSum = function(nums, target) {
 哈希表方法	| O(n)	| O(n)	| 最快，只需一次遍历	| 需要额外空间存储哈希表
 双循环方法	| O(n²)| 	O(1)	| 空间效率最高，实现简单	| 时间效率低，大数据量慢
 
+
 ###### 实际应用建议
 1. 优先使用哈希表方法 - 时间效率最高，是大数据量的首选
 2. 如果内存极度受限 - 考虑双循环方法
 3. 一般不推荐递归方法 - 既有双循环的时间复杂度，又有额外的栈空间开销
 
+#### 计算股票的最大利润
+
+```
+给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+
+你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。
+
+返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+```
+
+```js
+// O(n²) 解法
+var maxProfit = function(prices) {
+    let maxProfit = 0;
+    for(let i = 0; i < prices.length; i++) {
+        for(let j = i + 1; j < prices.length; j++) {
+            let profit = prices[j] - prices[i];
+            if(profit > maxProfit) {
+                maxProfit = profit;
+            }
+        }
+    }
+    return maxProfit;
+};
+```
+
+```js
+//更优的 O(n) 解法（一次遍历）
+var maxProfit = function(prices) {
+    let minPrice = Infinity;  // 记录至今为止的最低价格
+    let maxProfit = 0;        // 记录最大利润
+    
+    for(let i = 0; i < prices.length; i++) {
+        if(prices[i] < minPrice) {
+            minPrice = prices[i];  
+        } else if(prices[i] - minPrice > maxProfit) {
+            maxProfit = prices[i] - minPrice;  
+        }
+    }
+    
+    return maxProfit;
+};
+```
