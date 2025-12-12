@@ -26,5 +26,40 @@ categories:
 
 ## 算法常见案例
 
+#### 两数之和
+给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
 
+1. 对于大型数组，递归可能导致调用栈溢出。
+   
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    let index = 0;
+    return findValue(nums, index, target);
+};
+
+function findValue(nums, index, target) {
+    // 如果已经遍历完数组还没找到，返回空数组或null
+    if (index >= nums.length - 1) {
+        return null;
+    }
+    
+    for(let j = index + 1; j < nums.length; j++) {
+        if(nums[index] + nums[j] === target) {
+            return [index, j];
+        }
+    }
+    
+    // 递归搜索下一个元素
+    return findValue(nums, index + 1, target);
+}
+
+// 测试
+const arr = twoSum([3, 2, 4], 6);
+console.log(arr); // 应该输出 [1, 2]
+```
 
