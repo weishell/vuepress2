@@ -453,4 +453,52 @@ useEffect(() => {
 
 ```
 
+### webpack分splitChunks
+```js
+// webpack.config.js 的 splitChunks 部分调整：
+splitChunks: {
+  chunks: 'all',
+  minSize: 20000, // 小于不拆分
+  maxSize: 200 * 1024 * 1024, //大于考虑拆分
+  maxAsyncRequests: 10,      // 全局：10
+  maxInitialRequests: 8,     // 全局：8
+  cacheGroups: {
+    react: {
+      test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|scheduler|prop-types)[\\/]/,
+      name: 'react-vendor',
+      priority: 20,
+      reuseExistingChunk: true,//决定：是否复用已有 chunk
+    },
+    utility: {
+      test: /[\\/]node_modules[\\/](lodash|moment|axios)[\\/]/,
+      name: 'utility-vendor',
+      priority: 15,
+    },
+    vendors: {
+      test: /[\\/]node_modules[\\/]/,
+      name: 'vendors',
+      priority: 10,
+      maxAsyncRequests: 6, // 控制异步拆分数量
+      maxInitialRequests: 6  // 控制首屏拆分数量
+    },
+  
+  },
+}
+```
+
+1. 如果一个模块小于minSize，它不会被拆分（因为小于minSize）。
+2. 如果一个模块大于maxSize，Webpack会尝试把它拆分成多个maxSize大小的chunk（因为大于maxSize）。
+3. 如果一个模块等于maxSize，它会被作为一个单独的chunk，不会拆分。
+
+```js
+// 全局宽松，分组严格
+maxAsyncRequests: 12,      // 全局允许12个异步请求
+maxInitialRequests: 10,     // 全局允许10个初始请求
+defaultVendor: {
+  maxAsyncRequests: 8,     // 但分组最多只拆8个
+  maxInitialRequests: 8,   // 首屏分组最多8个
+}
+```
+
+
 [webpack](https://bqq9knyjcuo.feishu.cn/docx/VtaxdlwLVoGNUexHiSYcSS4MnTd?from=from_copylink)
