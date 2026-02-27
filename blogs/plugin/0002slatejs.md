@@ -52,8 +52,20 @@ Editor.withoutNormalizing(editor, () => {
 + 删除文字：选中一段文字并按退格键 → 使用 Transform.delete。
 + 删除整个段落：右键删除某个段落块 → 使用 Transform.removeNodes。
 
+```js
+Transforms.delete(editor: Editor, options?)
+Delete text in the document.
+
+Options: {at?: Location, distance?: number, unit?: 'character' | 'word' | 'line' | 'block', reverse?: boolean, hanging?: boolean, voids?: boolean}
+```
+
+```js
+Transforms.delete(editor,{at:[1]}) // 这种明确了删除位置，可以删除对应的block块
+Transforms.delete(editor)// 如过没有明确位置，删除对应的选区，如果没有选区，则删除光标后的内容（包括复杂的插件如图片，如果光标位于两个段落之间，会合并两个段落）
+```
+
   :::tip 提示
-  总结：delete 针对**文本**，removeNodes针对**节点**。
+  总结：delete 通常针对**文本**，removeNodes针对**节点**。
   :::
 
 ### Editor.node 和 Node.get
