@@ -71,6 +71,16 @@ Transforms.delete(editor,{at:[1]})
 // 如过没有明确位置，删除对应的选区，如果没有选区，则删除光标后的内容（包括复杂的插件如图片，如果光标位于两个段落之间，会合并两个段落）
 Transforms.delete(editor)
 ```
+removeNodes如果光标在某一行，没加其他参数，就会删除当前节点
+```js
+// 而removeNodes是针对节点层的，即使这种写法，也是删除整个节点1
+Transforms.removeNodes(editor, {
+   at: {
+     anchor: { path: [1], offset: 3 },
+     focus: { path: [1], offset: 5 }
+   }
+ })
+```
 
   :::tip 提示
   总结：delete 通常针对**文本**，removeNodes针对**节点**。
