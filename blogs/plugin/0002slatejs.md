@@ -56,12 +56,20 @@ Editor.withoutNormalizing(editor, () => {
 Transforms.delete(editor: Editor, options?)
 Delete text in the document.
 
-Options: {at?: Location, distance?: number, unit?: 'character' | 'word' | 'line' | 'block', reverse?: boolean, hanging?: boolean, voids?: boolean}
+Options: {
+ at?: Location, distance?: number,
+ unit?: 'character' | 'word' | 'line' | 'block', //颗粒度
+ reverse?: boolean,
+ hanging?: boolean,
+ voids?: boolean
+}
 ```
 
 ```js
-Transforms.delete(editor,{at:[1]}) // 这种明确了删除位置，可以删除对应的block块
-Transforms.delete(editor)// 如过没有明确位置，删除对应的选区，如果没有选区，则删除光标后的内容（包括复杂的插件如图片，如果光标位于两个段落之间，会合并两个段落）
+// 这种明确了删除位置，可以删除对应的block块
+Transforms.delete(editor,{at:[1]})
+// 如过没有明确位置，删除对应的选区，如果没有选区，则删除光标后的内容（包括复杂的插件如图片，如果光标位于两个段落之间，会合并两个段落）
+Transforms.delete(editor)
 ```
 
   :::tip 提示
