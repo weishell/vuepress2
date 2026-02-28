@@ -75,6 +75,7 @@ categories:
 + autofitjs:适应屏幕[官网](https://auto-plugin.github.io/autofit.js/)
 + recorder-core：音频处理，可以用来把实时传输给后端，应用场景：音频转文字
 + lazysizes:图片懒加载插件
++ codemirror：代码编辑器
 
 ```js
 import { Base64 } from 'js-base64'
@@ -136,6 +137,8 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + ahooks：react hooks插件
 + react-drawio:流程图插件：配置按钮有的版本存在问题，测试在V26.0.16版本中就避免了这个问题，此外它还支持UML类图插件。可以利用libs参数控制左侧应该展示的控件。（存在一定的样式问题，以及图片会被转成base64，如果做接口上传要额外注意）
 + react-intersection-observer：这是一个基于 React 的Intersection Observer API实现， 用于通知您元素何时进入或离开视口。它包含了Hooks、渲染属性和普通的 children实现。
++ @uiw/react-codemirror:React 的 CodeMirror 组件
+
 
 ### 移动端插件
 
