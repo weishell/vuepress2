@@ -9,13 +9,14 @@ categories:
 
 ## slate-yjs
 
+协同的数据获取后会先通过apply一次insert_nodes加入文档中，这就是初始化操作
 ```js
   // YjsEditor 源码解析
-  const e = editor as T & YjsEditor
+  const e =  YjsEditor
   // 将 Yjs 的共享根节点（通常是一个 Y.XmlText 或自定义 Y.Map）挂载到编辑器实例上
   e.sharedRoot = sharedRoot
     e.connect = () => {
-    // 避免重复读哟次链接
+    // 避免重复读多次链接
     if (YjsEditor.connected(e)) {
       throw new Error('already connected')
     }
@@ -23,9 +24,9 @@ categories:
     e.sharedRoot.observeDeep(handleYEvents)
     // 将 Yjs 的共享数据转换为 Slate 能理解的文档结构。
     const content = yTextToSlateElement(e.sharedRoot)
-    // 直接替换编辑器的根级 children 数组
-    // 初始化操作，它将远程已存在的文档内容同步到本地编辑器视图中
-    // 后续的增量同步通过 Yjs 事件机制处理，不再直接替换整个 children
+    // 直接替换编辑器的editor的children 数组
+    // 初始化，将远程已存在的文档内容同步到slate编辑器中
+    // 后续的增量同步通过 Yjs 事件机制处理，不需要直接替换整个 children
     e.children = content.children;
     CONNECTED.add(e);
 
