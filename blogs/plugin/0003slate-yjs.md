@@ -7,6 +7,55 @@ categories:
  - plugin
 ---
 
+# 基于slate的协同
+
+## HocuspocusProvider
+```js
+ /**
+    * WebSocketProvider 对应参数
+    * url: 服务地址
+    * messageReconnectTimeout: 消息重连超时时间
+    * timeout: 连接超时时间
+    * delay: 重连延迟时间
+    * maxDelay: 最大重连延迟时间
+    * jitter: 是否开启随机延迟，保证不同客户端的重连时间不一致，避免重连风暴
+    * maxAttempts: 最大重连次数,0标识无限次
+    * factor: 重连延迟倍数
+    */
+   const sharedWebSocket = new HocuspocusProviderWebsocket({
+     url: xxxx,
+     messageReconnectTimeout: 100000,
+     timeout: 100000,
+     delay: 4000,
+     maxDelay: 40000,
+     jitter: true,
+     maxAttempts: 50,
+     factor: 3,
+   })
+
+   /**
+    * HocuspocusProvider 对应参数
+    * 应用场景 配置HocuspocusProvider参数，包括文档ID、鉴权、事件回调等
+    * websocketProvider: WebSocket连接实例，用于与协同服务建立WebSocket连接
+    * name: 文档ID
+    * token: 鉴权token
+    * onConnect: 连接成功回调
+    * onDisconnect: 断开连接回调
+    * onClose: 关闭连接回调
+    */
+   const provider = new HocuspocusProvider({
+     websocketProvider: sharedWebSocket,
+     name: docUUID as string,
+     token: xxxx,
+     onConnect: () => {
+     },
+     onDisconnect: () => {
+     },
+     onClose: () => {
+     }
+   })
+```
+
 ## slate-yjs
 
 协同的数据获取后会先通过apply一次insert_nodes加入文档中，这就是初始化操作
