@@ -8,6 +8,7 @@ categories:
 ---
 
 # 基于slate的协同
+需要仔细去确定版本，包括react/HocuspocusProvider等，否则很容易出现各种问题
 
 ## HocuspocusProvider
 ```js
