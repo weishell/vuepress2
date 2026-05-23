@@ -99,3 +99,6 @@ categories:
     return () => YjsEditor.disconnect(editor)
   }, [editor,xxx]) //xxx是可能需要的依赖变化，根据项目需求
 ```
+
+## slate-yjs目前问题
+
