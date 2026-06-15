@@ -79,6 +79,7 @@ categories:
 + dexie:是一个对浏览器 indexedDB 的包装库
 + compressorjs JavaScript 图片压缩器
 + browser-image-compression
++ countUp.js 快速的创建各种有趣的数值动画效果
 
 
 
