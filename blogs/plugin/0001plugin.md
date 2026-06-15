@@ -145,6 +145,7 @@ cross-env API_URL=https://api.example.com DEBUG=true node app.js
 + react-intersection-observer：这是一个基于 React 的Intersection Observer API实现， 用于通知您元素何时进入或离开视口。它包含了Hooks、渲染属性和普通的 children实现。
 + @uiw/react-codemirror:React 的 CodeMirror 组件
 + react-device-detect:检测设备类型
++ react-markdown: 解析markdown
 
 
 ### 移动端插件
