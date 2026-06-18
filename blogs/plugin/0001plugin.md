@@ -32,6 +32,7 @@ categories:
 + svg-captcha 验证码生成[svg-captcha](https://www.npmjs.com/package/svg-captcha)
 + nodemailer 发送邮件:[nodemailer](https://www.npmjs.com/package/nodemailer)
 + lodash 前端工具库: [lodash](https://www.npmjs.com/package/lodash) [官网](https://www.lodashjs.com/)
++ es-toolkit 比lodash更轻量的工具库
 + marked markdown简单的插件 [marked](https://github.com/markedjs/marked)
 + video.js  播放器插件 [video.js](https://videojs.com/)
 + xgplayer 西瓜视频
