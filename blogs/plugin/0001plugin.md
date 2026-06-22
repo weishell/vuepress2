@@ -82,6 +82,7 @@ categories:
 + browser-image-compression
 + countUp.js 快速的创建各种有趣的数值动画效果
 + await-to-js 很久没维护不过也是个有意义的库
++ fetchEventSource:fetchEventSource 本质上是一个用 fetch API 重新实现的 SSE 客户端
 
 
 
