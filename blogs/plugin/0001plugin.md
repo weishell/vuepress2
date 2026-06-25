@@ -297,7 +297,6 @@ export const C1 = props => {
 ### 一些其他网站地址
 + [gemini](https://gemini.google.com/app)
 + [deepseek](https://www.deepseek.com/) :基础方案还行，细致的不行
-+ [文心一言](https://yiyan.baidu.com/)
 + [豆包](https://www.doubao.com/chat/)
 + [NPM](https://www.npmjs.com/)
 + [netlify](https://www.netlify.com/):静态网站托管服务
